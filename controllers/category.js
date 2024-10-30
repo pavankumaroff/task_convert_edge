@@ -4,7 +4,8 @@ async function createCategory(req, res) {
   const { name, subCategoryIds } = req.body;
 
   if (!name) return res.status(400).json({ message: "name is required" });
-
+  if (!Array.isArray(subCategoryIds)) return res.status(400).json({ message: "subCategoryIds should be an array" });
+  
   try {
     const category = new Category({ name, subCategory: subCategoryIds });
     await category.save();
